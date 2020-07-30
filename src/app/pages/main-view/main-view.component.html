@@ -1,0 +1,43 @@
+<div class="root">
+  <div class="navbar has-backround-dark">
+    <div class="navbar-brand">
+      <div class="navbar-item">
+        <h1 class="app-name has-gradient-text">
+          Task Manager
+        </h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="board">
+    <div class="board-bar">
+      <div class="board-name">
+        {{ board?.name }}
+      </div>
+    </div>
+
+    <div class="board-wrapper">
+      <div class="board-columns" cdkDropListGroup>
+        <div class="board-column" *ngFor="let column of board?.cardLists">
+          <div class="column-title">
+            {{ column.name }}
+          </div>
+
+          <div
+            cdkDropList
+            [cdkDropListData]="column.tasks"
+            class="board-column"
+            (cdkDropListDropped)="drop($event, column.id)"
+            class="tasks-container"
+          >
+            <div class="task" *ngFor="let item of column.tasks" [cdkDragData]="item" cdkDrag>
+              <b>{{ item.id }}</b> <br>
+              {{ item.name }} <br>
+              {{ item.description }} <br>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
